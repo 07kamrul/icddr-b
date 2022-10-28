@@ -1,15 +1,15 @@
 // To parse this JSON data, do
 //
-//     final member = memberFromJson(jsonString);
+//     final student = studentFromJson(jsonString);
 
 import 'dart:convert';
 
-Member memberFromJson(String str) => Member.fromJson(json.decode(str));
+Student studentFromJson(String str) => Student.fromJson(json.decode(str));
 
-String memberToJson(Member data) => json.encode(data.toJson());
+String studentToJson(Student data) => json.encode(data.toJson());
 
-class Member {
-  Member({
+class Student {
+  Student({
     this.id,
     required this.fullName,
     required this.age,
@@ -27,7 +27,7 @@ class Member {
   String gender;
   String education;
 
-  factory Member.fromJson(Map<String, dynamic> json) => Member(
+  factory Student.fromJson(Map<String, dynamic> json) => Student(
     id: json["id"],
     fullName: json["full_name"],
     age: json["age"],
@@ -39,11 +39,11 @@ class Member {
 
   Map<String, dynamic> toJson() => {
     "id": id,
-    "full_name": fullName,
+    "full_name": jsonEncode(fullName),
     "age": age,
     "date": "${date.year.toString().padLeft(4, '0')}-${date.month.toString().padLeft(2, '0')}-${date.day.toString().padLeft(2, '0')}",
     "time": time,
-    "gender": gender,
-    "education": education,
+    "gender": jsonEncode(gender),
+    "education": jsonEncode(education),
   };
 }

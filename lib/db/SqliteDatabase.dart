@@ -1,14 +1,14 @@
 import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
-import 'package:icddrb/model/members.dart';
+import 'package:icddrb/model/student.dart';
 
 class SqliteDatabase {
   final _dbName ="icddrb.db";
-  final _tableName = "members";
+  final _tableName = "student";
 
   Future<Database> initDb() async{
     String path = await getDatabasesPath();
-    String createTable = "CREATE TABLE $_tableName"
+    String createTable = "CREATE TABLE ${_tableName}"
         "(id INTEGER PRIMARY KEY AUTOINCREMENT,"
         "full_name TEXT NOT NULL,"
         "age INTEGER NOT NULL,"
@@ -25,26 +25,26 @@ class SqliteDatabase {
     );
   }
 
-  Future<int> insertRecord(Member member) async{
+  Future<int> insertRecord(Student student) async{
     final Database db = await initDb();
-    print(member.toJson());
+    print(student.toJson());
     //var result = await db.insert(_tableName, member.toJson());
     var result = await db.rawInsert(
       "INSERT INTO $_tableName (`full_name`, `age`, `date`, `time`, `gender`, `education`)"
-          " VALUES ('${member.fullName}', '${member.age}',"
-          "'${member.date}', '${member.time}', '${member.gender}', '${member.education}')"
+          " VALUES ('${student.fullName}', '${student.age}',"
+          "'${student.date}', '${student.time}', '${student.gender}', '${student.education}')"
     );
 
-    print("SELECT * FROM members");
+    print("SELECT * FROM student");
     return result;
   }
 
 
-  Future<List<Member>> getRecord() async{
+  Future<List<Student>> getRecord() async{
     final Database db = await initDb();
     final List<Map<String,dynamic>> queryResult = await db.query(_tableName);
     
-    return queryResult.map((e) => Member.fromJson(e)).toList();
+    return queryResult.map((e) => Student.fromJson(e)).toList();
   }
 
 }

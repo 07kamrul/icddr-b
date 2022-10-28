@@ -2,7 +2,7 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:icddrb/db/SqliteDatabase.dart';
-import 'package:icddrb/model/members.dart';
+import 'package:icddrb/model/student.dart';
 import 'package:icddrb/screens/dashboard.dart';
 import 'package:icddrb/screens/login_page.dart';
 import 'package:intl/intl.dart';
@@ -310,7 +310,7 @@ class _InsertPageState extends State<InsertPage> {
   }
 
   _insertData(String full_name, String age, String date, String time, String gender, String education) async {
-    Member member = Member(
+    Student student = Student(
         fullName: full_name,
         age: int.parse(age),
         time: time,
@@ -318,14 +318,14 @@ class _InsertPageState extends State<InsertPage> {
         gender: gender,
         education: education
     );
-    print(member.fullName);
-    print(member.age);
-    print(member.date);
-    print(member.time);
-    print(member.gender);
-    print(member.education);
+    print(student.fullName);
+    print(student.age);
+    print(student.date);
+    print(student.time);
+    print(student.gender);
+    print(student.education);
 
-    var response = await SqliteDatabase().insertRecord(member);
+    var response = await SqliteDatabase().insertRecord(student);
     print(response);
 
     if(response != 0){

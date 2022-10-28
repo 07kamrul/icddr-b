@@ -1,9 +1,8 @@
 import 'dart:ffi';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:icddrb/db/SqliteDatabase.dart';
-import 'package:icddrb/model/members.dart';
+import 'package:icddrb/model/student.dart';
 import 'package:icddrb/screens/insert_page.dart';
 
 class Dashboard extends StatefulWidget {
@@ -82,7 +81,7 @@ class _DashboardState extends State<Dashboard> {
       ),
     );
 
-    _displayCard(Member member){
+    _displayCard(Student student){
       return Card(
         child: Padding(
           padding: const EdgeInsets.all(10.0),
@@ -93,10 +92,10 @@ class _DashboardState extends State<Dashboard> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
-                  Text("Name: ${member.fullName}",
+                  Text("Name: ${student.fullName}",
                     style: const TextStyle(fontSize: 10),
                   ),
-                  Text("Age: ${member.age}",
+                  Text("Age: ${student.age}",
                     style: const TextStyle(fontSize: 10),
                   ),
                 ],
@@ -104,10 +103,10 @@ class _DashboardState extends State<Dashboard> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
-                  Text("Date: ${member.date.day}/${member.date.month}/${member.date.year}",
+                  Text("Date: ${student.date.day}/${student.date.month}/${student.date.year}",
                     style: const TextStyle(fontSize: 10),
                   ),
-                  Text("Sex: ${member.gender}",
+                  Text("Sex: ${student.gender}",
                     style: const TextStyle(fontSize: 10),
                   )
                 ],
@@ -117,6 +116,26 @@ class _DashboardState extends State<Dashboard> {
         ),
       );
     }
+
+    final recycleView = FutureBuilder(
+      future: SqliteDatabase().getRecord(),
+      builder: (BuildContext context,
+          AsyncSnapshot<List<Student>> snapshot) {
+        if(snapshot.hasData){
+          return ListView.builder(
+              itemCount: snapshot.data!.length,
+              itemBuilder: (context, index){
+                return _displayCard(snapshot.data![index]);
+              }
+          );
+        }
+        else{
+          return const Center(
+            child: Text("No data found."),
+          );
+        }
+      },
+    );
 
     return Scaffold(
       appBar: AppBar(
@@ -128,10 +147,10 @@ class _DashboardState extends State<Dashboard> {
         child: FutureBuilder(
           future: SqliteDatabase().getRecord(),
           builder: (BuildContext context,
-              AsyncSnapshot<List<Member>> snapshot) {
+              AsyncSnapshot<List<Student>> snapshot) {
             if(snapshot.hasData){
               return ListView.builder(
-                itemCount: snapshot.data!.length,
+                  itemCount: snapshot.data!.length,
                   itemBuilder: (context, index){
                     return _displayCard(snapshot.data![index]);
                   }
