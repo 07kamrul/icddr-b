@@ -44,7 +44,7 @@ class _InsertPageState extends State<InsertPage> {
     super.dispose();
   }
 
-  String? dropdownvalue = 'SSC';
+  String? dropdownvalue;
   List genders = ["Male", "Female"];
   late String selectGender;
   @override
@@ -214,7 +214,7 @@ class _InsertPageState extends State<InsertPage> {
     final education = Row(
       children: [
         const Icon(
-          Icons.location_on,
+          Icons.cast_for_education,
           color: Colors.grey,
           size: 30.0,
         ),
@@ -234,7 +234,7 @@ class _InsertPageState extends State<InsertPage> {
             iconSize: 24,
             elevation: 16,
             style: TextStyle(color: Colors.deepOrange),
-            items: <String>['Dhaka', 'Chottogram', 'Gazipur']
+            items: <String>['SSC', 'HSC', 'BSc', 'MSc']
                 .map<DropdownMenuItem<String>>((String value) {
               return DropdownMenuItem<String>(
                 value: value,

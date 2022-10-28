@@ -32,9 +32,10 @@ class SqliteDatabase {
     var result = await db.rawInsert(
       "INSERT INTO $_tableName (`full_name`, `age`, `date`, `time`, `gender`, `education`)"
           " VALUES ('${member.fullName}', '${member.age}',"
-          "'${member.date}', '${member.time}','${member.gender}', '${member.education}')"
+          "'${member.date}', '${member.time}', '${member.gender}', '${member.education}')"
     );
 
+    print("SELECT * FROM members");
     return result;
   }
 
