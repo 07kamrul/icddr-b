@@ -27,6 +27,13 @@ class _DashboardState extends State<Dashboard> {
       child: const Text('Add New'),
     );
 
+    final search = IconButton(
+      onPressed: (){
+
+      },
+      icon: const Icon(Icons.search),
+      color: Colors.grey,
+    );
 
     final search_add = Container(
       padding: const EdgeInsets.symmetric(vertical: 20.0, horizontal: 1.0),
@@ -39,7 +46,7 @@ class _DashboardState extends State<Dashboard> {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
-              const Text("Search")  ,
+              search,
               add
             ],
           ),
