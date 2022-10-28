@@ -43,40 +43,6 @@ class _DashboardState extends State<Dashboard> {
               add
             ],
           ),
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: <Widget>[
-              Row(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: const [
-                  Text("Name",
-                    style: TextStyle(
-                      color: Colors.black,
-                      fontWeight: FontWeight.w600,
-                      fontSize: 16.0,
-                    ),),
-                  Text("Age", style:
-                  TextStyle(color: Colors.grey),),
-                ],
-              ),
-              Row(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: const [
-                  Text("Date",
-                    style: TextStyle(
-                      color: Colors.black,
-                      fontWeight: FontWeight.w600,
-                      fontSize: 16.0,
-                    ),),
-                  Text("Sex", style:
-                  TextStyle(color: Colors.grey),),
-                ],
-              ),
-            ],
-          ),
         ],
       ),
     );
@@ -139,30 +105,22 @@ class _DashboardState extends State<Dashboard> {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Center(child: Text("Dashboard")),
+        title: const Center(child: Text("Student List")),
         elevation: .1,
         backgroundColor: Colors.pink,
       ),
-      body: SafeArea(
-        child: FutureBuilder(
-          future: SqliteDatabase().getRecord(),
-          builder: (BuildContext context,
-              AsyncSnapshot<List<Student>> snapshot) {
-            if(snapshot.hasData){
-              return ListView.builder(
-                  itemCount: snapshot.data!.length,
-                  itemBuilder: (context, index){
-                    return _displayCard(snapshot.data![index]);
-                  }
-              );
-            }
-            else{
-              return const Center(
-                child: Text("No data found."),
-              );
-            }
-          },
-        ),
+      body: Column(
+        children: [
+          Expanded(
+            flex: 0,
+              child: search_add
+          ),
+          Expanded(
+            child: SafeArea(
+              child: recycleView,
+            )
+          )
+        ],
       ),
     );
   }
